@@ -31,7 +31,7 @@ export default function TopAppBar() {
                         <Link to={"/dashboard"} ><Button sx={{ color: "whitesmoke" }} color='inherit'>Dashboard</Button></Link>
                         <Link to={"/main"}><Button sx={{ color: "whitesmoke" }} color='inherit'>Add Expense</Button></Link>
                         <Link to={"/inc"}><Button sx={{ color: "whitesmoke" }} color='inherit'>Income Transaction</Button></Link>
-                        <Link to={"/exp"}><Button sx={{ color: "whitesmoke" }} color='inherit'>Exp Transaction</Button></Link>
+                        <Link to={"/exp"}><Button sx={{ color: "whitesmoke" }} color='inherit'>Expense Transaction</Button></Link>
                     </Typography>
                     <Button color="inherit" onClick={() => navigate("/login")}>Login</Button>
                 </Toolbar>

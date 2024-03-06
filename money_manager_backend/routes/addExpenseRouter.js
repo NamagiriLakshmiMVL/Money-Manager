@@ -34,4 +34,14 @@ router.post("/deleting-expenses", async (req, res) => {
     }
 })
 
+router.post("/updating-expenses",async(req,res)=>{
+    try{
+        const update = await addExpenseModel.findOneAndUpdate({ _id: req.body.id }, req.body)
+        res.send("Updated Successfully")
+    }
+    catch(err){
+        res.send(err)
+    }
+})
+
 module.exports = router

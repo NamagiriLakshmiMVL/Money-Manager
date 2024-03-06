@@ -1,19 +1,26 @@
 import { Button, TextField, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import axios from "axios"
 
-export function Expense({val}) {
+export function Expense({ setSample, edit,setEdit }) {
+    const [test, setTest] = useState(false)
     const [type, setType] = useState('Income');
     const [title, setTitle] = useState("")
     const [amount, setAmount] = useState("")
     const [category, setCategory] = useState("")
-    
+    useEffect(() => {
+        
+        setTitle(edit.title)
+        setAmount(edit.amount)
+        setCategory(edit.category)
+        setTest(!test)
 
+
+    }, [edit])
     const handleChange = (event) => {
         setType(event.target.value);
     };
@@ -35,24 +42,36 @@ export function Expense({val}) {
             type,
             expensefor: expenditure,
             category,
-            email
+            email,
+            id: edit._id
         }
         console.log(newExpense)
-        await axios.post("http://localhost:3000/expenses/adding-expenses", newExpense)
-            .then((res) => alert(res.data))
+
+       
+            edit?._id !== undefined  && await axios.post("http://localhost:3000/expenses/updating-expenses", newExpense)
+                .then((res) => alert(res.data))
+            setEdit({})
+       
+
+       
+                edit?._id === undefined  && await axios.post("http://localhost:3000/expenses/adding-expenses", newExpense)
+                .then((res) => alert(res.data))
+        
 
         await setTitle("")
         await setAmount("")
         await setCategory("")
+        await setSample(prev => !prev)
 
     }
 
-    console.log(val)
+
     return (
         <>
             <Box>
+                <Typography variant='h5' sx={{ border: "1px solid black", borderRadius: "10px", textAlign: "center", backgroundColor: "#EEEDEB" }}>Adding Inc/Exp</Typography>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <Typography>Title</Typography>
+                    <Typography sx={{ marginTop: "20px" }}>Title</Typography>
                     <TextField id="outlined-basic" label="Title" name='title' value={title} variant="outlined" onChange={(e) => setTitle(e.target.value)} />
                     <Typography>Amount</Typography>
                     <TextField id="outlined-basic" label="Amount" value={amount} name='amount' variant="outlined" onChange={(e) => setAmount(e.target.value)} />

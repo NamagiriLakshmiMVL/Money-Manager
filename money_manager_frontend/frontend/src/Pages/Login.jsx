@@ -17,15 +17,13 @@ export function Login(props) {
         }
         localStorage.setItem("email", email)
         await axios.post("http://localhost:3000/users/login", result)
-            .then((res) => alert(res.data))
-            .then(() => navigate("/main"))
+            .then((res) => (res.data === "Login Successfully") ? navigate("/main") : alert("User Not Exists"))
     }
-
     return (
         <>
 
             <TopAppBar />
-            <Box sx={{marginTop:"100px"}}>
+            <Box sx={{ marginTop: "100px" }}>
                 <Box sx={{ flexGrow: 1 }}>
                     <Toolbar sx={{ display: "flex", justifyContent: "center", gap: "30px" }} >
                         <Link to={"/login"}><Button variant="text" sx={{ textDecoration: "underline" }}>Login</Button></Link>

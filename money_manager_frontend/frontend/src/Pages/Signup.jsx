@@ -23,14 +23,12 @@ export function Signup(props) {
         await axios.post("http://localhost:3000/users/creating-users", newUser)
             .then((res) => alert(res.data))
             .then(() => navigate("/main"))
-
     }
-
     return (
 
         <Box >
-            <TopAppBar/>
-            <Box sx={{ flexGrow: 1 ,marginTop:"100px"}}>
+            <TopAppBar />
+            <Box sx={{ flexGrow: 1, marginTop: "100px" }}>
                 <Toolbar sx={{ display: "flex", justifyContent: "center", gap: "30px" }} >
                     <Link to={"/login"}><Button variant="text">Login</Button></Link>
                     <Link to={"/signup"}><Button variant="text" sx={{ textDecoration: "underline" }}>Sign up</Button></Link>

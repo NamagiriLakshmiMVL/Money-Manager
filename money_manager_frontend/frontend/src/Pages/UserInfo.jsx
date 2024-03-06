@@ -12,7 +12,7 @@ import Paper from '@mui/material/Paper';
 
 
 
-export function UserInfo() {
+export function UserInfo({ sample, setEdit }) {
     const [rows, setRows] = useState([])
     const [removedata, setRemovedata] = useState(false)
 
@@ -21,7 +21,7 @@ export function UserInfo() {
     useEffect(() => {
         axios.post("http://localhost:3000/expenses/getting-expenses", result)
             .then((res) => setRows(res.data))
-    }, [removedata])
+    }, [removedata, sample])
 
     const handleDelete = (id) => {
         const res = { id }
@@ -30,11 +30,11 @@ export function UserInfo() {
         setRemovedata(prev => !prev);
     }
     const handleEdit = (val) => {
-
+        setEdit(val)
     }
     return (
         <div>
-            <Typography variant="h5" sx={{textAlign:"center",marginBottom:"30px"}}>User Information</Typography>
+            <Typography variant="h5" sx={{ textAlign: "center", marginBottom: "30px" }}>User Information</Typography>
             {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
