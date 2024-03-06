@@ -9,19 +9,29 @@ router.post("/adding-expenses", async (req, res) => {
         res.send("Added Successfully")
     }
     catch (err) {
-        res.send(err)
+        res.send("Error")
     }
 })
 
-router.get("/getting-expenses", async (req, res) => {
+router.post("/getting-expenses", async (req, res) => {
     try {
-        const allExpenses = addExpenseModel.find()
+        const allExpenses = await addExpenseModel.find({ email: req.body.email })
         res.send(allExpenses)
     }
     catch (err) {
         res.send(err)
     }
 
+})
+
+router.post("/deleting-expenses", async (req, res) => {
+    try {
+        const newExpense = await addExpenseModel.findOneAndDelete({ _id: req.body.id })
+        res.send("Deleted Successfully")
+    }
+    catch (err) {
+        res.send(err)
+    }
 })
 
 module.exports = router

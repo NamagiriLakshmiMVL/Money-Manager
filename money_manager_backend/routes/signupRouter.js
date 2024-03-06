@@ -9,7 +9,7 @@ router.post("/creating-users", async (req, res) => {
         res.send("User Created Successfully")
     }
     catch (err) {
-        res.send(err)
+        res.send("Error")
     }
 })
 
@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
         }
     }
     catch(err){
-        res.send(err)
+        res.send("Error")
     }
 })
 
