@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Table, TableCell, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
+import {toast} from "react-toastify"
 
 
 
@@ -26,7 +27,10 @@ export function UserInfo({ sample, setEdit }) {
     const handleDelete = (id) => {
         const res = { id }
         axios.post("http://localhost:3000/expenses/deleting-expenses", res)
-            .then((res) => alert(res.data))
+            .then((res) => (toast.success(res.data),{
+                position: "top-center",
+                autoClose: 1000,
+            }))
         setRemovedata(prev => !prev);
     }
     const handleEdit = (val) => {
