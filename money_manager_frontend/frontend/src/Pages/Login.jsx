@@ -35,7 +35,7 @@ export function Login(props) {
           ?( toast.success(res.data, {
               position: "top-center",
               autoClose: 1000,
-            }) && navigate("/main"))
+            }) && navigate("/dashboard"))
           : toast.error(res.data, {
               position: "top-center",
               autoClose: 1000,
@@ -50,19 +50,19 @@ export function Login(props) {
 
       <Box sx={{ marginTop: "100px" }}>
         {loader === true && (
-          <CircularProgress sx={{ marginLeft: { xs: 13, sm: 50, md: 85 } }} />
+          <CircularProgress sx={{ marginLeft: { xs: 13, sm: 50, md: 93 } }} />
         )}
         <Box sx={{ flexGrow: 1 }}>
           <Toolbar
             sx={{ display: "flex", justifyContent: "center", gap: "30px" }}
           >
             <Link to={"/login"}>
-              <Button variant="text" sx={{ textDecoration: "underline" }}>
+              <Button size="large" variant="text" sx={{ textDecoration: "underline" }}>
                 Login
               </Button>
             </Link>
             <Link to={"/signup"}>
-              <Button variant="text">Sign up</Button>
+              <Button  size="large" variant="text">Sign up</Button>
             </Link>
           </Toolbar>
         </Box>

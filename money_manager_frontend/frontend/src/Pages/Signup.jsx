@@ -23,18 +23,17 @@ export function Signup(props) {
     };
     localStorage.setItem("email", email);
     console.log(newUser);
-    await axios
-      .post(`${API}/users/creating-users`, newUser)
-      .then(
-        (res) => (
-          toast.success(res.data),
-          {
+    await axios.post(`${API}/users/creating-users`, newUser).then((res) => {
+      res.data === "User Created Successfully"
+        ? toast.success(res.data, {
             position: "top-center",
             autoClose: 1000,
-          }
-        )
-      )
-      .then(() => navigate("/dashboard"));
+          }) && navigate("/dashboard")
+        : toast.error(res.data, {
+            position: "top-center",
+            autoClose: 1000,
+          });
+    });
   };
   return (
     <Box>
@@ -44,10 +43,16 @@ export function Signup(props) {
           sx={{ display: "flex", justifyContent: "center", gap: "30px" }}
         >
           <Link to={"/login"}>
-            <Button variant="text">Login</Button>
+            <Button size="large" variant="text">
+              Login
+            </Button>
           </Link>
           <Link to={"/signup"}>
-            <Button variant="text" sx={{ textDecoration: "underline" }}>
+            <Button
+              size="large"
+              variant="text"
+              sx={{ textDecoration: "underline" }}
+            >
               Sign up
             </Button>
           </Link>

@@ -21,17 +21,19 @@ export function UserInfo({ sample, setEdit }) {
     const email = localStorage.getItem("email")
     const result = { email }
     useEffect(() => {
-        axios.post(`${API}}/expenses/getting-expenses`, result)
+        console.log("Useffect fired")
+        axios.post(`${API}/expenses/getting-expenses`, result)
             .then((res) => setRows(res.data))
     }, [removedata, sample])
 
-    const handleDelete = (id) => {
+    const handleDelete = async(id) => {
         const res = { id }
-        axios.post(`${API}/expenses/deleting-expenses`, res)
-            .then((res) => (toast.success(res.data),{
+      await  axios.post(`${API}/expenses/deleting-expenses`, res)
+            .then((res) => (toast.success(res.data,{
                 position: "top-center",
                 autoClose: 1000,
             }))
+            )
         setRemovedata(prev => !prev);
     }
     const handleEdit = (val) => {

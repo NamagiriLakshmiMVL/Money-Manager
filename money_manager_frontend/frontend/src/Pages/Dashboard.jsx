@@ -5,8 +5,8 @@ import TopAppBar from './TopAppbar'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { API } from '../API';
 
-export function MainPage(props) {
-    const [balance, setBalance] = useState(0)
+export function MainPage() {
+    const [balance, setBalance] = useState()
     const [store, setStore] = useState([])
     const email = localStorage.getItem("email")
     const result = { email }

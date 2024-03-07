@@ -50,13 +50,10 @@ export function Expense({ setSample, edit, setEdit }) {
       (await axios
         .post(`${API}/expenses/updating-expenses`, newExpense)
         .then(
-          (res) => (
-            toast.success(res.data),
-            {
-              position: "top-center",
+          (res) => {
+            toast.success(res.data,{position: "top-center",
               autoClose: 1000,
-            }
-          )
+            })}
         ));
     setEdit({});
 
@@ -65,12 +62,12 @@ export function Expense({ setSample, edit, setEdit }) {
         .post(`${API}/expenses/adding-expenses`, newExpense)
         .then(
           (res) => (
-            toast.success(res.data),
+            toast.success(res.data,
             {
               position: "top-center",
               autoClose: 1000,
             }
-          )
+          ))
         ));
 
     await setTitle("");
