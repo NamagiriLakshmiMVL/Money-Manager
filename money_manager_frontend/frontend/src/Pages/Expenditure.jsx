@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import { Box,  Table, TableCell, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import TopAppBar from './TopAppbar';
+import { API } from '../API';
 
 export function Expenditure(props) {
     const [rows, setRows] = useState([])
@@ -16,7 +17,7 @@ export function Expenditure(props) {
         email,
     }
     useEffect(async () => {
-        await axios.post("http://localhost:3000/expenses/getting-expenses", result)
+        await axios.post(`${API}/expenses/getting-expenses`, result)
             .then((res) => setRows((res.data).filter((val) => val.type === "Expenditure")))
 
     }, [])

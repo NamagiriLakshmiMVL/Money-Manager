@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import TopAppBar from './TopAppbar'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import { API } from '../API';
 
 export function MainPage(props) {
     const [balance, setBalance] = useState(0)
@@ -11,7 +12,7 @@ export function MainPage(props) {
     const result = { email }
     useEffect(() => {
         async function fetchData() {
-            await axios.post("http://localhost:3000/expenses/getting-expenses", result)
+            await axios.post(`${API}/expenses/getting-expenses`, result)
                 .then((res) => setStore(res.data))
         }
         fetchData();

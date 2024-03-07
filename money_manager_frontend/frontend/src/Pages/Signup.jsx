@@ -4,6 +4,7 @@ import { TextField, Typography, Button, Box, Toolbar } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import TopAppBar from "./TopAppbar";
 import { toast } from "react-toastify";
+import { API } from "../API";
 
 export function Signup(props) {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function Signup(props) {
     localStorage.setItem("email", email);
     console.log(newUser);
     await axios
-      .post("http://localhost:3000/users/creating-users", newUser)
+      .post(`${API}/users/creating-users`, newUser)
       .then(
         (res) => (
           toast.success(res.data),

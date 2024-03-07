@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Table, TableCell, Typography } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import {toast} from "react-toastify"
+import { API } from "../API";
 
 
 
@@ -20,13 +21,13 @@ export function UserInfo({ sample, setEdit }) {
     const email = localStorage.getItem("email")
     const result = { email }
     useEffect(() => {
-        axios.post("http://localhost:3000/expenses/getting-expenses", result)
+        axios.post(`${API}}/expenses/getting-expenses`, result)
             .then((res) => setRows(res.data))
     }, [removedata, sample])
 
     const handleDelete = (id) => {
         const res = { id }
-        axios.post("http://localhost:3000/expenses/deleting-expenses", res)
+        axios.post(`${API}/expenses/deleting-expenses`, res)
             .then((res) => (toast.success(res.data),{
                 position: "top-center",
                 autoClose: 1000,

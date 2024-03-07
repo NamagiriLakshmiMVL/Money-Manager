@@ -11,6 +11,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import TopAppBar from "./TopAppbar";
 import { toast } from "react-toastify";
+import { API } from "../API";
 
 export function Login(props) {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function Login(props) {
     localStorage.setItem("email", email);
     await setLoader(true);
     await axios
-      .post("http://localhost:3000/users/login", result)
+      .post(`${API}/users/login`, result)
       .then((res) => {
         res.data === "Login Successfully"
           ?( toast.success(res.data, {

@@ -6,6 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { API } from "../API";
 
 export function Expense({ setSample, edit, setEdit }) {
   const [test, setTest] = useState(false);
@@ -47,7 +48,7 @@ export function Expense({ setSample, edit, setEdit }) {
 
     edit?._id !== undefined &&
       (await axios
-        .post("http://localhost:3000/expenses/updating-expenses", newExpense)
+        .post(`${API}/expenses/updating-expenses`, newExpense)
         .then(
           (res) => (
             toast.success(res.data),
@@ -61,7 +62,7 @@ export function Expense({ setSample, edit, setEdit }) {
 
     edit?._id === undefined &&
       (await axios
-        .post("http://localhost:3000/expenses/adding-expenses", newExpense)
+        .post(`${API}/expenses/adding-expenses`, newExpense)
         .then(
           (res) => (
             toast.success(res.data),
