@@ -1,1 +1,1 @@
-export const API = "https://money-manager-backend-9lok.onrender.com"
+export const API = "https://money-manager-backend-w5nu.onrender.com"
