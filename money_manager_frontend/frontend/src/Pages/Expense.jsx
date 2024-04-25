@@ -27,6 +27,7 @@ export function Expense({ setSample, edit, setEdit }) {
   const handleChange2 = (event) => {
     setExpenditure(event.target.value);
   };
+  const token = localStorage.getItem("x-auth-token")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +49,11 @@ export function Expense({ setSample, edit, setEdit }) {
 
     edit?._id !== undefined &&
       (await axios
-        .post(`${API}/expenses/updating-expenses`, newExpense)
+        .post(`${API}/expenses/updating-expenses`, newExpense, {
+          headers: {
+            "x-auth-token": token,
+          },
+        })
         .then(
           (res) => {
             toast.success(res.data,{position: "top-center",
@@ -59,7 +64,11 @@ export function Expense({ setSample, edit, setEdit }) {
 
     edit?._id === undefined &&
       (await axios
-        .post(`${API}/expenses/adding-expenses`, newExpense)
+        .post(`${API}/expenses/adding-expenses`, newExpense, {
+          headers: {
+            "x-auth-token": token,
+          },
+        })
         .then(
           (res) => (
             toast.success(res.data,

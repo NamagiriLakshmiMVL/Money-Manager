@@ -28,19 +28,19 @@ export function Login(props) {
     };
     localStorage.setItem("email", email);
     await setLoader(true);
-    await axios
-      .post(`${API}/users/login`, result)
-      .then((res) => {
-        res.data === "Login Successfully"
-          ?( toast.success(res.data, {
-              position: "top-center",
-              autoClose: 1000,
-            }) && navigate("/dashboard"))
-          : toast.error(res.data, {
-              position: "top-center",
-              autoClose: 1000,
-            });
-      });
+    await axios.post(`${API}/users/login`, result).then((res) => {
+      res.data.message === "Login Successfully"
+        ? toast.success(res.data.message, {
+            position: "top-center",
+            autoClose: 1000,
+          }) && navigate("/dashboard")
+        : toast.error(res.data.message, {
+            position: "top-center",
+            autoClose: 1000,
+          });
+          localStorage.setItem("x-auth-token",res.data.token)
+
+    });
     setLoader(false);
   };
 
@@ -57,12 +57,18 @@ export function Login(props) {
             sx={{ display: "flex", justifyContent: "center", gap: "30px" }}
           >
             <Link to={"/login"}>
-              <Button size="large" variant="text" sx={{ textDecoration: "underline" }}>
+              <Button
+                size="large"
+                variant="text"
+                sx={{ textDecoration: "underline" }}
+              >
                 Login
               </Button>
             </Link>
             <Link to={"/signup"}>
-              <Button  size="large" variant="text">Sign up</Button>
+              <Button size="large" variant="text">
+                Sign up
+              </Button>
             </Link>
           </Toolbar>
         </Box>

@@ -6,13 +6,18 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { API } from '../API';
 
 export function MainPage() {
+    const token = localStorage.getItem("x-auth-token")
     const [balance, setBalance] = useState()
     const [store, setStore] = useState([])
     const email = localStorage.getItem("email")
     const result = { email }
     useEffect(() => {
         async function fetchData() {
-            await axios.post(`${API}/expenses/getting-expenses`, result)
+            await axios.post(`${API}/expenses/getting-expenses`, result, {
+                headers: {
+                  "x-auth-token": token,
+                },
+              })
                 .then((res) => setStore(res.data))
         }
         fetchData();
@@ -32,7 +37,6 @@ export function MainPage() {
 
         <Box>
             <TopAppBar />
-            {/* <pre>{JSON.stringify(store, null, 2)}</pre> */}
             <Box sx={{ marginTop: "100px", display: "flex", justifyContent: "space-evenly" }}>
                 <Box sx={{ display: "flex", width: "200px", border: "1px solid black", height: "130px", borderRadius: "20px", backgroundColor: "#EEEDEB" }}>
                     <Box sx={{ margin: "24px 24px", textAlign: "center" }}>

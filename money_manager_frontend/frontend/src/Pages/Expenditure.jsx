@@ -11,6 +11,8 @@ import TopAppBar from "./TopAppbar";
 import { API } from "../API";
 
 export function Expenditure(props) {
+  const token = localStorage.getItem("x-auth-token")
+
   const [rows, setRows] = useState([]);
   const email = localStorage.getItem("email");
   const result = {
@@ -18,7 +20,11 @@ export function Expenditure(props) {
   };
   const rowsUpdate = async () =>
     await axios
-      .post(`${API}/expenses/getting-expenses`, result)
+      .post(`${API}/expenses/getting-expenses`, result, {
+        headers: {
+          "x-auth-token": token,
+        },
+      })
       .then((res) =>
         setRows(res.data.filter((val) => val.type === "Expenditure"))
       );

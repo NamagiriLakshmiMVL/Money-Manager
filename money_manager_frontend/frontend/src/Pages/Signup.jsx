@@ -22,17 +22,17 @@ export function Signup(props) {
       password,
     };
     localStorage.setItem("email", email);
-    console.log(newUser);
     await axios.post(`${API}/users/creating-users`, newUser).then((res) => {
-      res.data === "User Created Successfully"
-        ? toast.success(res.data, {
+      res.data.message === "User Created Successfully"
+        ? toast.success(res.data.message, {
             position: "top-center",
             autoClose: 1000,
           }) && navigate("/dashboard")
-        : toast.error(res.data, {
+        : toast.error(res.data.message, {
             position: "top-center",
             autoClose: 1000,
           });
+          localStorage.setItem("x-auth-token",res.data.token)
     });
   };
   return (

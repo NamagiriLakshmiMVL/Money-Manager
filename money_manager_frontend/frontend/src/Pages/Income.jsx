@@ -11,13 +11,19 @@ import TopAppBar from './TopAppbar';
 import { API } from '../API';
 
 export function Income(props) {
+    const token = localStorage.getItem("x-auth-token")
+
     const [rows, setRows] = useState([])
     const email = localStorage.getItem("email")
     const result = {
         email,
     }
     const rowsUpdate = async () =>
-        await axios.post(`${API}/expenses/getting-expenses`, result)
+        await axios.post(`${API}/expenses/getting-expenses`, result, {
+            headers: {
+              "x-auth-token": token,
+            },
+          })
             .then((res) => setRows((res.data).filter((val) => val.type === "Income")))
     useEffect(() => {
         rowsUpdate()
