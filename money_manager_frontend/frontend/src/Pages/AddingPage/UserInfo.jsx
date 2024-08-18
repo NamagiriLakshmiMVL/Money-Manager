@@ -10,17 +10,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, Table, TableCell, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { toast } from "react-toastify";
-import { API } from "../API";
+import { API } from "../../API";
 
 export function UserInfo({ sample, setEdit }) {
   const [rows, setRows] = useState([]);
   const [removedata, setRemovedata] = useState(false);
-  const token = localStorage.getItem("x-auth-token")
+  const token = localStorage.getItem("x-auth-token");
 
   const email = localStorage.getItem("email");
   const result = { email };
   useEffect(() => {
-    console.log("Useffect fired");
     axios
       .post(`${API}/expenses/getting-expenses`, result, {
         headers: {
@@ -49,26 +48,53 @@ export function UserInfo({ sample, setEdit }) {
   const handleEdit = (val) => {
     setEdit(val);
   };
+  let arr = [
+    "Title",
+    "Amount",
+    "Type",
+    "For",
+    "Category",
+    "Created At",
+    "Action",
+  ];
   return (
     <div>
       <Typography
-        variant="h5"
-        sx={{ textAlign: "center", marginBottom: "30px" }}
+        variant="h4"
+        sx={{
+          textAlign: "center",
+          marginBottom: "30px",
+          fontFamily: "monospace",
+          color: "brown",
+          fontWeight: "bold",
+        }}
       >
         User Information
       </Typography>
-      {/* <pre>{JSON.stringify(rows, null, 2)}</pre> */}
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table
+          sx={{
+            minWidth: 650,
+            border: "1px solid black",
+            backgroundColor: "lightcyan",
+          }}
+          aria-label="simple table"
+        >
           <TableHead>
             <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell align="right">Amount</TableCell>
-              <TableCell align="right">Type</TableCell>
-              <TableCell align="right">For</TableCell>
-              <TableCell align="right">Category</TableCell>
-              <TableCell align="right">Created At</TableCell>
-              <TableCell align="right">Action</TableCell>
+              {arr.map((val, ind) => (
+                <TableCell
+                  key={ind}
+                  align="right"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    color: "darkblue",
+                  }}
+                >
+                  {val}
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,7 +102,9 @@ export function UserInfo({ sample, setEdit }) {
               return (
                 <TableRow
                   key={val._id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  sx={{
+                    "&:last-child td, &:last-child th": { border: 0 },
+                  }}
                 >
                   <TableCell align="right">{val.title}</TableCell>
                   <TableCell align="right">{val.amount}</TableCell>

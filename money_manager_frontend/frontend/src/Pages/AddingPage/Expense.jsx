@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { API } from "../API";
+import { API } from "../../API";
 
 export function Expense({ setSample, edit, setEdit }) {
   const [test, setTest] = useState(false);
@@ -27,7 +27,7 @@ export function Expense({ setSample, edit, setEdit }) {
   const handleChange2 = (event) => {
     setExpenditure(event.target.value);
   };
-  const token = localStorage.getItem("x-auth-token")
+  const token = localStorage.getItem("x-auth-token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +45,6 @@ export function Expense({ setSample, edit, setEdit }) {
       email,
       id: edit._id,
     };
-    console.log(newExpense);
 
     edit?._id !== undefined &&
       (await axios
@@ -54,12 +53,9 @@ export function Expense({ setSample, edit, setEdit }) {
             "x-auth-token": token,
           },
         })
-        .then(
-          (res) => {
-            toast.success(res.data,{position: "top-center",
-              autoClose: 1000,
-            })}
-        ));
+        .then((res) => {
+          toast.success(res.data, { position: "top-center", autoClose: 1000 });
+        }));
     setEdit({});
 
     edit?._id === undefined &&
@@ -69,14 +65,11 @@ export function Expense({ setSample, edit, setEdit }) {
             "x-auth-token": token,
           },
         })
-        .then(
-          (res) => (
-            toast.success(res.data,
-            {
-              position: "top-center",
-              autoClose: 1000,
-            }
-          ))
+        .then((res) =>
+          toast.success(res.data, {
+            position: "top-center",
+            autoClose: 1000,
+          })
         ));
 
     await setTitle("");
@@ -87,7 +80,14 @@ export function Expense({ setSample, edit, setEdit }) {
 
   return (
     <>
-      <Box>
+      <Box
+        sx={{
+          border: "1px solid gray",
+          padding: "30px",
+          borderRadius: "10px",
+          backgroundColor: "lightyellow",
+        }}
+      >
         <Typography
           variant="h5"
           sx={{
@@ -103,7 +103,7 @@ export function Expense({ setSample, edit, setEdit }) {
           <Typography sx={{ marginTop: "20px" }}>Title</Typography>
           <TextField
             id="outlined-basic"
-            label="Title"
+            placeholder="Title"
             name="title"
             value={title}
             variant="outlined"
@@ -112,7 +112,7 @@ export function Expense({ setSample, edit, setEdit }) {
           <Typography>Amount</Typography>
           <TextField
             id="outlined-basic"
-            label="Amount"
+            placeholder="Amount"
             value={amount}
             name="amount"
             variant="outlined"
@@ -137,7 +137,7 @@ export function Expense({ setSample, edit, setEdit }) {
           <Typography>Category</Typography>
           <TextField
             id="outlined-basic"
-            label="Category"
+            placeholder="Category"
             value={category}
             name="category"
             variant="outlined"
@@ -158,8 +158,11 @@ export function Expense({ setSample, edit, setEdit }) {
               </Select>
             </FormControl>
           </Box>
-          <Button variant="contained" type="submit">
-            {" "}
+          <Button
+            variant="contained"
+            type="submit"
+            sx={{ marginTop: "10px", width: "100%", textAlign: "center" }}
+          >
             Submit
           </Button>
         </form>

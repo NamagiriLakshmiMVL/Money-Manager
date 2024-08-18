@@ -6,12 +6,13 @@ import {
   Box,
   Toolbar,
   CircularProgress,
+  Stack,
 } from "@mui/material";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import TopAppBar from "./TopAppbar";
+import TopAppBar from "../../TopAppbar";
 import { toast } from "react-toastify";
-import { API } from "../API";
+import { API } from "../../../API";
 
 export function Login(props) {
   const navigate = useNavigate();
@@ -38,62 +39,52 @@ export function Login(props) {
             position: "top-center",
             autoClose: 1000,
           });
-          localStorage.setItem("x-auth-token",res.data.token)
-
+      localStorage.setItem("x-auth-token", res.data.token);
+      localStorage.setItem("result", "Yes");
     });
     setLoader(false);
   };
 
   return (
     <>
-      <TopAppBar />
-
-      <Box sx={{ marginTop: "100px" }}>
-        {loader === true && (
-          <CircularProgress sx={{ marginLeft: { xs: 13, sm: 50, md: 93 } }} />
-        )}
-        <Box sx={{ flexGrow: 1 }}>
-          <Toolbar
-            sx={{ display: "flex", justifyContent: "center", gap: "30px" }}
-          >
-            <Link to={"/login"}>
-              <Button
-                size="large"
-                variant="text"
-                sx={{ textDecoration: "underline" }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to={"/signup"}>
-              <Button size="large" variant="text">
-                Sign up
-              </Button>
-            </Link>
-          </Toolbar>
-        </Box>
+      <Box sx={{ marginTop: "20px", width: "20%" }}>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <Box sx={{ textAlign: "center" }}>
+          <Stack spacing={1} centerContent>
+            {loader === true && (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
             <Typography>Enter your Email Id</Typography>
             <TextField
               id="outlined-basic"
-              label="Email"
+              placeholder="Email"
               name="email"
               variant="outlined"
             />
             <Typography>Enter your Password</Typography>
             <TextField
               id="outlined-basic"
-              label="Password"
+              placeholder="Password"
               name="password"
               variant="outlined"
             />
             <br />
-            <Button variant="contained" type="submit">
-              {" "}
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{ marginTop: "20px", textAlign: "center", width: "100%" }}
+            >
               Submit
             </Button>
-          </Box>
+          </Stack>
         </form>
       </Box>
     </>

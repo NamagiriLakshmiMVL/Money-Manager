@@ -7,11 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Box, Table, TableCell, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import TopAppBar from "./TopAppbar";
 import { API } from "../API";
 
 export function Expenditure(props) {
-  const token = localStorage.getItem("x-auth-token")
+  const token = localStorage.getItem("x-auth-token");
 
   const [rows, setRows] = useState([]);
   const email = localStorage.getItem("email");
@@ -31,12 +30,21 @@ export function Expenditure(props) {
   useEffect(() => {
     rowsUpdate();
   }, [rows]);
+  let arr = ["Title", "Amount", "Type", "For", "Category", "Created At"];
 
   return (
     <>
-      <TopAppBar />
       <Box sx={{ marginTop: "100px" }}>
-        <Typography variant="h5" sx={{ textAlign: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            textAlign: "center",
+            fontFamily: "monospace",
+            color: "brown",
+            fontWeight: "bold",
+            fontSize: 30,
+          }}
+        >
           Expense Transaction
         </Typography>
         <TableContainer
@@ -46,16 +54,25 @@ export function Expenditure(props) {
             textAlign: "center",
             marginLeft: "20%",
             marginTop: "20px",
+            border: "1px solid black",
           }}
         >
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="right">Title</TableCell>
-                <TableCell align="right">Amount</TableCell>
-                <TableCell align="right">For</TableCell>
-                <TableCell align="right">Category</TableCell>
-                <TableCell align="right">Created At</TableCell>
+                {arr.map((val, ind) => (
+                  <TableCell
+                    key={ind}
+                    align="right"
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                      color: "darkblue",
+                    }}
+                  >
+                    {val}
+                  </TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -67,6 +84,7 @@ export function Expenditure(props) {
                   >
                     <TableCell align="right">{val.title}</TableCell>
                     <TableCell align="right">{val.amount}</TableCell>
+                    <TableCell align="right">{val.type}</TableCell>
                     <TableCell align="right">{val.expensefor}</TableCell>
                     <TableCell align="right">{val.category}</TableCell>
                     <TableCell align="right">{val.createdAt}</TableCell>
